@@ -12,10 +12,11 @@
 		"vscode": {
 			"extensions": [
 				"vadimcn.vscode-lldb",
-				"serayuzgur.crates",
 				"tamasfe.even-better-toml",
 				"rust-lang.rust-analyzer",
-				"mechatroner.rainbow-csv"
+				"mechatroner.rainbow-csv",
+				"bradlc.vscode-tailwindcss",
+				"fill-labs.dependi"
 			]
 		}
 	}
