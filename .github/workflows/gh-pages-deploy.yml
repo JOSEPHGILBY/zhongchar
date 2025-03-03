@@ -71,8 +71,8 @@ jobs:
         run: BASE_URL="/${GITHUB_REPOSITORY#*/}" trunk build --release --public-url "/${GITHUB_REPOSITORY#*/}"
 
         # Add <base> tag to index.html (Corrected with double quotes)
-      # - name: Add base tag
-      #   run: sed -i "s@<head>@<head>\\n<base href=\"/${GITHUB_REPOSITORY#*/}\">@" dist/index.html
+      - name: Add base tag
+        run: sed -i "s@<head>@<head>\\n<base href=\"/${GITHUB_REPOSITORY#*/}\">@" dist/index.html
 
 
       # Deploy to gh-pages branch
