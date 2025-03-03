@@ -1,4 +1,4 @@
-use leptos::document;
+use leptos::prelude::*;
 
 
 pub(crate) fn prepend_relative_url(relative_url: &str) -> String {
@@ -13,4 +13,3 @@ pub(crate) fn prepend_relative_url(relative_url: &str) -> String {
     }
     domain_path + relative_url
 }
-

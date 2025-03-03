@@ -1,18 +1,14 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <!--Do NOT remove this meta tag. Used as part of the deployment process-->
-        <meta name="domain-path" content="/"/>
-        <!--<meta name="version" content="{{buildVersion}}"/> -->
-        
-        <link data-trunk rel="css" href="style/output.css" />
-        <link data-trunk rel="copy-dir" href="public" />
-        <link data-trunk rel="copy-file" href="manifest.json">
-        <link data-trunk rel="copy-file" href="icon-256.png">
-        <link data-trunk rel="copy-file" href="service_worker.js">
-        <link rel="manifest" href="./manifest.json">
+<html lang="en" class="overscroll-none">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link data-trunk rel="rust" data-wasm-opt="z" />
+    <link data-trunk rel="icon" type="image/ico" href="/public/favicon.ico" />
+    <link data-trunk rel="tailwind-css" href="/style/tailwind.css" />
+    <link data-trunk rel="copy-file" href="/public/radicals.csv" />
+    
+  </head>
 
-        <title>Leptos App</title>
-    </head>
-    <body></body>
+  <body class="overscroll-none"></body>
 </html>

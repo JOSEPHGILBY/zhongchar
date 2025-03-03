@@ -1,6 +1,4 @@
 use serde::{Deserialize, Serialize};
-use leptos::{*, error::Result};
-use crate::helpers::prepend_relative_url;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Radical {

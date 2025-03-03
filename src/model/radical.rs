@@ -1,9 +1,10 @@
 use serde::{Deserialize, Serialize};
-use leptos::{*};
-use crate::WasmResult;
+use leptos::prelude::*;
 use crate::helpers::prepend_relative_url;
 
 use crate::model::radical_from_csv;
+
+use super::error::ZhongCharResult;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Radical {
@@ -22,13 +23,14 @@ pub struct Radical {
 }
 
 impl Radical {
-    pub async fn fetch_radicals() -> WasmResult<Vec<Radical>> {
+    pub async fn fetch_radicals() -> ZhongCharResult<Vec<Radical>> {
+        gloo_timers::future::TimeoutFuture::new(1000).await;
         let url = format!(
-            "{}//{}:{}{}",
+            "{}//{}:{}/{}",
             window().location().protocol().unwrap(),
             window().location().hostname().unwrap(),
             window().location().port().unwrap_or_default(),
-            prepend_relative_url("public/radicals.csv")
+            prepend_relative_url("radicals.csv")
         );
         let text = 
             reqwasm::http::Request::get(&url)
@@ -48,6 +50,7 @@ impl Radical {
         
         Ok(radicals)
     }
+
 }
 
 impl From<radical_from_csv::Radical> for Radical {
