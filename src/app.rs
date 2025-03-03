@@ -239,9 +239,11 @@ fn Nav() -> impl IntoView {
 pub fn App() -> impl IntoView {
     provide_meta_context();
 
+    let base_url = option_env!("BASE_URL").unwrap_or("");
+
     view! {
         <Link rel="shortcut icon" type_="image/ico" href="/favicon.ico"/>
-        <Router>
+        <Router base=base_url>
             <Routes fallback=|| "Page not found.">
                 <Route path=path!("/") view=Home/>
                 <Route path=path!("/radicals") view=Radicals/>
