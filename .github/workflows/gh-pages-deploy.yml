@@ -47,15 +47,20 @@ jobs:
         uses: dtolnay/rust-toolchain@nightly
         with:
           components: clippy, rustfmt
+          
+      # Install Trunk
+      - name: Install Trunk
+        run: cargo install trunk
 
       - name: Add WASM target
         run: rustup target add wasm32-unknown-unknown
 
       - name: lint
         run: cargo clippy & cargo fmt
-
-      - name: Download and install Trunk binary
-        run: wget -qO- https://github.com/trunk-rs/trunk/releases/download/v0.18.4/trunk-x86_64-unknown-linux-gnu.tar.gz | tar -xzf-
+        
+        # Echo GITHUB_REPOSITORY
+      - name: Echo GITHUB_REPOSITORY
+        run: echo "GITHUB_REPOSITORY ${GITHUB_REPOSITORY}"
 
       - name: Build with Trunk
         # "${GITHUB_REPOSITORY#*/}" evaluates into the name of the repository
@@ -63,7 +68,7 @@ jobs:
         # this is necessary for github pages where the site is deployed to username.github.io/repo_name and all files must be requested
         # relatively as favicon.ico. if we skip public-url option, the href paths will instead request username.github.io/favicon.ico which
         # will obviously return error 404 not found.
-        run: ./trunk build --release --public-url "${GITHUB_REPOSITORY#*/}"
+        run: trunk build --release --public-url "${GITHUB_REPOSITORY#*/}"
 
 
       # Deploy to gh-pages branch
