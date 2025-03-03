@@ -131,17 +131,19 @@ fn Nav() -> impl IntoView {
         click_has_reached_radio.set(false);
     });
 
+    let base_url = option_env!("BASE_URL").unwrap_or("/");
+
     view! {
         <div class="navbar bg-base-100 shadow-sm sticky top-0 z-50">
             <div class="navbar-start">
-                <a href="/"
+                <a href=move || format!("{}", base_url)
                     class="btn btn-ghost text-xl hover:bg-transparent"
                 >
                     中 Char
                 </a>
             </div>
             <div class="navbar-center">
-                <a href="/radicals"
+                <a href=move || format!("{}{}", base_url, "radicals")
                     class="btn btn-ghost hover:bg-transparent"
                     class=("underline", move || pathname.get() == "/radicals".to_string())
                 >
