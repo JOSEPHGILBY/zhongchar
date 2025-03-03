@@ -1,3 +1,4 @@
+use leptos::logging::log;
 use serde::{Deserialize, Serialize};
 use leptos::prelude::*;
 use crate::helpers::prepend_relative_url;
@@ -24,13 +25,19 @@ pub struct Radical {
 
 impl Radical {
     pub async fn fetch_radicals() -> ZhongCharResult<Vec<Radical>> {
-        gloo_timers::future::TimeoutFuture::new(1000).await;
+        let base_url = option_env!("BASE_URL").unwrap_or("/");
+        let port = window().location().port(); // Get port as Option<String>
+        let port_part = match port {
+            Ok(p) if !p.is_empty() => format!(":{}", p), 
+            _ => "".to_string(),
+        };
         let url = format!(
-            "{}//{}:{}/{}",
+            "{}//{}{}{}{}",
             window().location().protocol().unwrap(),
             window().location().hostname().unwrap(),
-            window().location().port().unwrap_or_default(),
-            prepend_relative_url("radicals.csv")
+            port_part,
+            base_url, 
+            "radicals.csv",
         );
         let text = 
             reqwasm::http::Request::get(&url)
