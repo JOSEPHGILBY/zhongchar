@@ -58,9 +58,9 @@ jobs:
       - name: lint
         run: cargo clippy & cargo fmt
         
-        # Echo GITHUB_REPOSITORY
-      - name: Echo GITHUB_REPOSITORY
-        run: echo "GITHUB_REPOSITORY ${GITHUB_REPOSITORY} ${GITHUB_REPOSITORY#*/}"
+        # Add <base> tag to index.html (Corrected with double quotes)
+      - name: Add base tag
+        run: sed -i "s@<head>@<head>\\n<base href=\"/${GITHUB_REPOSITORY#*/}\">@" dist/index.html
 
       - name: Build with Trunk
         # "${GITHUB_REPOSITORY#*/}" evaluates into the name of the repository
