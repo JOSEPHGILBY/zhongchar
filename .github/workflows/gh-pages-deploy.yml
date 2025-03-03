@@ -72,7 +72,7 @@ jobs:
 
         # Add <base> tag to index.html (Corrected with double quotes)
       - name: Add base tag
-        run: sed -i "s@<head>@<head>\\n<base href=\"/${GITHUB_REPOSITORY#*/}\">@" dist/index.html
+        run: sed -i "s@<head>@<head>\\n<base href=\"/${GITHUB_REPOSITORY#*/}/\">@" dist/index.html
 
 
       # Deploy to gh-pages branch
