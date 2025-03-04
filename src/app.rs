@@ -1,11 +1,11 @@
 use leptos::either::either;
-use leptos::html::{self, Div, HtmlElement, Input};
+use leptos::html::{Div, Input};
 use leptos::logging::log;
-use leptos::{logging, prelude::*};
+use leptos::prelude::*;
 use leptos_meta::*;
 use leptos_router::{components::*, path};
 use leptos_use::core::IntoElementMaybeSignal;
-use leptos_use::{sync_signal_with_options, use_color_mode_with_options, use_event_listener, use_event_listener_with_options, use_preferred_dark, use_window_focus, ColorMode, SyncSignalOptions, UseColorModeOptions, UseColorModeReturn};
+use leptos_use::{sync_signal_with_options, use_color_mode_with_options, use_event_listener, use_event_listener_with_options, use_mutation_observer_with_options, use_preferred_dark, use_window_focus, ColorMode, SyncSignalOptions, UseColorModeOptions, UseColorModeReturn, UseMutationObserverOptions};
 use crate::model::error::ArcZhongCharError;
 use crate::model::radical::Radical;
 use leptos_router::hooks::use_location;
@@ -132,9 +132,25 @@ fn Nav() -> impl IntoView {
     });
 
     let base_url = option_env!("BASE_URL").unwrap_or("/");
+    let navbar_ref = NodeRef::<Div>::new();
+
+    Effect::new(move |_| {
+        selected_theme.get(); // trigger the effect whenever the selected theme changes
+        let navbar_el = navbar_ref.get().expect("Navbar div should be mounted").clone();
+        let style = window().get_computed_style(&navbar_el).expect("Can't get computed style").expect("null computed style");
+        let bg_color = style.get_property_value("background-color").expect("Could not get background-color");
+
+        let document = window().document().expect("No document in window");
+        let theme_color_meta_tag = document
+            .query_selector("#themeColor")
+            .expect("themeColor meta tag should exist")
+            .expect("themeColor meta tag should exist");
+
+        theme_color_meta_tag.set_attribute("content", &bg_color).expect("set attribute fail");
+    });
 
     view! {
-        <div class="navbar bg-base-100 shadow-sm sticky top-0 z-50">
+        <div node_ref=navbar_ref class="navbar bg-base-100 shadow-sm sticky top-0 z-50">
             <div class="navbar-start">
                 <a href=move || format!("{}", base_url)
                     class="btn btn-ghost text-xl hover:bg-transparent"
@@ -256,9 +272,6 @@ pub fn App() -> impl IntoView {
 
 #[component]
 fn Home() -> impl IntoView {
-    let (value, set_value) = signal(0);
-
-    // thanks to https://tailwindcomponents.com/component/blue-buttons-example for the showcase layout
     view! {
         <main>
             <Title text="中 Char"/>
