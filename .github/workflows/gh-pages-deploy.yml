@@ -74,6 +74,9 @@ jobs:
       - name: Add base tag
         run: sed -i "s@<head>@<head>\\n<base href=\"/${GITHUB_REPOSITORY#*/}/\">@" dist/index.html
 
+      # **NEW STEP: Copy index.html to radicals.html**
+      - name: Copy index.html to radicals.html
+        run: cp dist/index.html dist/radicals.html
 
       # Deploy to gh-pages branch
       # - name: Deploy 🚀
