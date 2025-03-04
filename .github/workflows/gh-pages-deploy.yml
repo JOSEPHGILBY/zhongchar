@@ -80,7 +80,7 @@ jobs:
 
       # **NEW STEP: Modify start_url in manifest.json**
       - name: Modify start_url in manifest.json
-        run: sed -i "s@\"start_url\": \"/\"@\"start_url\": \"/${GITHUB_REPOSITORY#*/}/\"@g" dist/manifest.json
+        run: sed -i "s@\"start_url\"\: \"/\"@\"start_url\"\: \"/${GITHUB_REPOSITORY#*/}/\"@g" dist/manifest.json
 
       # **NEW STEP: Copy index.html to radicals.html**
       - name: Copy index.html to radicals.html
