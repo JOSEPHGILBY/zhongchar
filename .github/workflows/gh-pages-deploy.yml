@@ -70,9 +70,13 @@ jobs:
         # will obviously return error 404 not found.
         run: BASE_URL="/${GITHUB_REPOSITORY#*/}/" trunk build --release --public-url "/${GITHUB_REPOSITORY#*/}"
 
-        # Add <base> tag to index.html (Corrected with double quotes)
+      # Add <base> tag to index.html (Corrected with double quotes)
       - name: Add base tag
         run: sed -i "s@<head>@<head>\\n<base href=\"/${GITHUB_REPOSITORY#*/}/\">@" dist/index.html
+
+      # **UPDATED STEP: Modify manifest.json link with double quotes**
+      - name: Modify manifest.json link
+        run: sed -i "s@<link rel=\"manifest\" href=\"/manifest.json\">@<link rel=\"manifest\" href=\"/${GITHUB_REPOSITORY#*/}/manifest.json\">@g" dist/index.html
 
       # **NEW STEP: Copy index.html to radicals.html**
       - name: Copy index.html to radicals.html
