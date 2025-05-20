@@ -136,7 +136,10 @@ fn Nav() -> impl IntoView {
 
     Effect::new(move |_| {
         selected_theme.get(); // trigger the effect whenever the selected theme changes
-        let navbar_el = navbar_ref.get().expect("Navbar div should be mounted").clone();
+        prefers_dark.get(); // also trigger if the browser's theme changes
+        let Some(navbar_el) = navbar_ref.get() else {
+            return;
+        };
         let style = window().get_computed_style(&navbar_el).expect("Can't get computed style").expect("null computed style");
         let bg_color = style.get_property_value("background-color").expect("Could not get background-color");
 
