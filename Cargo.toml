@@ -13,14 +13,14 @@ gloo-net = "0.6"
 gloo-timers = { version = "0.3", features = ["futures"] }
 indexed_db_futures = "0.6"
 js-sys = "0.3"
-leptos = { version = "0.7", features = ["csr", "nightly"] }
-leptos-use = "0.15"
-leptos_meta = "0.7"
-leptos_router = "0.7"
+leptos = { version = "0.8", features = ["csr", "nightly"] }
+leptos-use = "0.16"
+leptos_meta = "0.8"
+leptos_router = "0.8"
 reqwasm = "0.5"
 serde = "1.0"
 serde-wasm-bindgen = "0.6"
-thiserror = "2.0.11"
+thiserror = "2.0"
 
 
 [dependencies.web-sys]
