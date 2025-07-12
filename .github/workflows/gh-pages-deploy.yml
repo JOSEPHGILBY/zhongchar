@@ -57,10 +57,6 @@ jobs:
 
       - name: lint
         run: cargo clippy & cargo fmt
-        
-        # Add <base> tag to index.html (Corrected with double quotes)
-      - name: Add base tag
-        run: sed -i "s@<head>@<head>\\n<base href=\"/${GITHUB_REPOSITORY#*/}\">@" dist/index.html
 
       - name: Build with Trunk
         # "${GITHUB_REPOSITORY#*/}" evaluates into the name of the repository
